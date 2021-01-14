@@ -9,7 +9,7 @@ const filePath = path.join(__dirname, 'typeDefs.gql');
 const typeDefs = fs.readFileSync(filePath, 'utf-8');
 +require('dotenv').config({ path: 'variables.env' });
 
-const User = require('./models/User');
+const User = require('./models/User'   );
 const Post = require('./models/Post');
 
 // Connect to MongoDB database

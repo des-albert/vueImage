@@ -121,7 +121,7 @@
   </v-app>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'App',
@@ -132,23 +132,23 @@ export default {
       authSnackbar: false,
       authErrorSnackbar: false,
       badgeAnimated: false
-    };
+    }
   },
   watch: {
     user(newValue, oldValue) {
       if (oldValue === null) {
-        this.authSnackbar = true;
+        this.authSnackbar = true
       }
     },
     authError(value) {
       if (value !== null) {
-        this.authErrorSnackbar = true;
+        this.authErrorSnackbar = true
       }
     },
     userFavorites(value) {
       if (value) {
-        this.badgeAnimated = true;
-        setTimeout(() => (this.badgeAnimated = false), 1000);
+        this.badgeAnimated = true
+        setTimeout(() => (this.badgeAnimated = false), 1000)
       }
     }
   },
@@ -159,62 +159,62 @@ export default {
         { icon: 'chat', title: 'Posts', link: '/posts' },
         { icon: 'lock_open', title: 'Sign In', link: '/signin' },
         { icon: 'create', title: 'Sign Up', link: '/signup' }
-      ];
+      ]
       if (this.user) {
-        items = [{ icon: 'chat', title: 'Posts', link: '/posts' }];
+        items = [{ icon: 'chat', title: 'Posts', link: '/posts' }]
       }
-      return items;
+      return items
     },
     sideNavItems() {
       let items = [
         { icon: 'chat', title: 'Posts', link: '/posts' },
         { icon: 'lock_open', title: 'Sign In', link: '/signin' },
         { icon: 'create', title: 'Sign Up', link: '/signup' }
-      ];
+      ]
 
       if (this.user) {
         items = [
           { icon: 'chat', title: 'Posts', link: '/posts' },
           { icon: 'stars', title: 'Create Post', link: '/post/add' },
           { icon: 'account_box', title: 'Profile', link: '/profile' }
-        ];
+        ]
       }
-      return items;
+      return items
     }
   },
   methods: {
     handleSearchPosts() {
       this.$store.dispatch('searchPosts', {
         searchTerm: this.searchTerm
-      });
+      })
     },
     handleSignoutUser() {
-      this.$store.dispatch('signoutUser');
+      this.$store.dispatch('signoutUser')
     },
     goToSearchResult(resultId) {
       // clear search term
 
-      this.searchTerm = '';
+      this.searchTerm = ''
 
       // go to desired result
 
-      this.$router.push(`/posts/${resultId}`);
+      this.$router.push(`/posts/${resultId}`)
 
       // Clear Search Results
 
-      this.$store.commit('clearSearchResults');
+      this.$store.commit('clearSearchResults')
     },
     formatDescription(desc) {
-      return desc.length > 30 ? `${desc.slice(0, 30)}...` : desc;
+      return desc.length > 30 ? `${desc.slice(0, 30)}...` : desc
     },
     checkIfUserFavorite(resultId) {
-      return this.userFavorites && this.userFavorites.some((fave) => fave._id === resultId);
+      return this.userFavorites && this.userFavorites.some((fave) => fave._id === resultId)
     },
     toggleSideNav() {
-      this.sideNav = !this.sideNav;
+      this.sideNav = !this.sideNav
     }
   }
-};
+}
 </script>
 <style>
 .fade-enter-active,
