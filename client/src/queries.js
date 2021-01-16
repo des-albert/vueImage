@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from 'apollo-boost'
 
 /* Posts Queries */
 
@@ -10,7 +10,7 @@ export const GET_POSTS = gql`
       imageUrl
     }
   }
-`;
+`
 
 export const GET_POST = gql`
   query($postId: ID!) {
@@ -34,7 +34,7 @@ export const GET_POST = gql`
       }
     }
   }
-`;
+`
 
 export const SEARCH_POSTS = gql`
   query($searchTerm: String) {
@@ -46,7 +46,7 @@ export const SEARCH_POSTS = gql`
       likes
     }
   }
-`;
+`
 
 /* User Queries  */
 
@@ -66,7 +66,7 @@ export const GET_CURRENT_USER = gql`
       }
     }
   }
-`;
+`
 
 export const GET_USER_POSTS = gql`
   query($userId: ID!) {
@@ -80,7 +80,7 @@ export const GET_USER_POSTS = gql`
       likes
     }
   }
-`;
+`
 
 export const INFINITE_SCROLL_POSTS = gql`
   query($pageNum: Int!, $pageSize: Int!) {
@@ -105,7 +105,7 @@ export const INFINITE_SCROLL_POSTS = gql`
       }
     }
   }
-`;
+`
 
 /* Post Mutations */
 
@@ -120,7 +120,7 @@ export const LIKE_POST = gql`
       }
     }
   }
-`;
+`
 
 export const UNLIKE_POST = gql`
   mutation($postId: ID!, $username: String!) {
@@ -133,7 +133,7 @@ export const UNLIKE_POST = gql`
       }
     }
   }
-`;
+`
 
 /* User Mutations */
 
@@ -153,7 +153,7 @@ export const UPDATE_USER_POST = gql`
       }
     }
   }
-`;
+`
 
 export const DELETE_USER_POST = gql`
   mutation($postId: ID!) {
@@ -161,7 +161,7 @@ export const DELETE_USER_POST = gql`
       _id
     }
   }
-`;
+`
 
 export const ADD_POST_MESSAGE = gql`
   mutation($messageBody: String!, $userId: ID!, $postId: ID!) {
@@ -176,7 +176,7 @@ export const ADD_POST_MESSAGE = gql`
       }
     }
   }
-`;
+`
 
 export const SIGNIN_USER = gql`
   mutation($username: String!, $password: String!) {
@@ -184,7 +184,7 @@ export const SIGNIN_USER = gql`
       token
     }
   }
-`;
+`
 
 export const SIGNUP_USER = gql`
   mutation($username: String!, $email: String!, $password: String!) {
@@ -192,7 +192,7 @@ export const SIGNUP_USER = gql`
       token
     }
   }
-`;
+`
 
 /* Posts Mutations */
 
@@ -207,4 +207,4 @@ export const ADD_POST = gql`
       createdDate
     }
   }
-`;
+`

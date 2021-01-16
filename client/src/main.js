@@ -1,22 +1,21 @@
-import Vue from 'vue';
-import App from './App.vue';
-import router from './router';
-import store from './store';
-import vuetify from './plugins/vuetify';
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import vuetify from './plugins/vuetify'
 
-import ApolloClient from 'apollo-boost';
-import VueApollo from 'vue-apollo';
+import ApolloClient from 'apollo-boost'
+import VueApollo from 'vue-apollo'
 
-import FormAlert from './components/Shared/FormAlert';
+import FormAlert from './components/Shared/FormAlert'
 
 // Register Global Component
 
-Vue.component('form-alert', FormAlert);
+Vue.component('form-alert', FormAlert)
 
-Vue.use(VueApollo);
+Vue.use(VueApollo)
 
 export const apolloClient = new ApolloClient({
-
   uri: 'http://vueimage.herokuapp.com/graphql',
 
   // uri: 'http://localhost:4000/graphql',
@@ -26,9 +25,9 @@ export const apolloClient = new ApolloClient({
   fetchOptions: {
     credentials: 'include'
   },
-  request: operation => {
+  request: (operation) => {
     if (!localStorage.token) {
-      localStorage.setItem('token', '');
+      localStorage.setItem('token', '')
     }
 
     // operation adds token to an authorization header
@@ -37,42 +36,42 @@ export const apolloClient = new ApolloClient({
       headers: {
         authorization: localStorage.getItem('token')
       }
-    });
+    })
   },
 
   onError: ({ graphQLErrors, networkError }) => {
     if (networkError) {
-      console.log('[networkError]', networkError);
+      console.log('[networkError]', networkError)
     }
 
     if (graphQLErrors) {
       for (let err of graphQLErrors) {
-        console.dir(err);
+        console.dir(err)
         if (err.name === 'AuthenticationError') {
           // set Auth Error in state
-          store.commit('setAuthError', err);
+          store.commit('setAuthError', err)
           // signout user (to clear token)
-          store.dispatch('signoutUser');
+          store.dispatch('signoutUser')
         }
       }
     }
   }
-});
+})
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient
-});
+})
 
-Vue.config.productionTip = false;
+Vue.config.productionTip = false
 
 new Vue({
   router,
   store,
   vuetify,
   apolloProvider,
-  render: h => h(App),
+  render: (h) => h(App),
 
   created() {
-    this.$store.dispatch('getCurrentUser');
+    this.$store.dispatch('getCurrentUser')
   }
-}).$mount('#app');
+}).$mount('#app')
