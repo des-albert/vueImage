@@ -50,10 +50,10 @@
   </v-container>
 </template>
 <script>
-import { INFINITE_SCROLL_POSTS } from '../../queries';
-import moment from 'moment';
+import { INFINITE_SCROLL_POSTS } from '../../queries'
+import moment from 'moment'
 
-const pageSize = 2;
+const pageSize = 2
 
 export default {
   name: 'Posts',
@@ -61,7 +61,7 @@ export default {
     return {
       pageNum: 1,
       showPostCreator: false
-    };
+    }
   },
   apollo: {
     infiniteScrollPosts: {
@@ -74,12 +74,12 @@ export default {
   },
   computed: {
     showMoreEnabled() {
-      return this.infiniteScrollPosts && this.infiniteScrollPosts.hasMore;
+      return this.infiniteScrollPosts && this.infiniteScrollPosts.hasMore
     }
   },
   methods: {
     showMorePosts() {
-      this.pageNum += 1;
+      this.pageNum += 1
 
       this.$apollo.queries.infiniteScrollPosts.fetchMore({
         variables: {
@@ -87,24 +87,24 @@ export default {
           pageSize
         },
         updateQuery: (prevResult, { fetchMoreResult }) => {
-          const newPosts = fetchMoreResult.infiniteScrollPosts.posts;
-          const hasMore = fetchMoreResult.infiniteScrollPosts.hasMore;
+          const newPosts = fetchMoreResult.infiniteScrollPosts.posts
+          const hasMore = fetchMoreResult.infiniteScrollPosts.hasMore
           return {
             infiniteScrollPosts: {
               __typename: prevResult.infiniteScrollPosts.__typename,
               posts: [...prevResult.infiniteScrollPosts.posts, ...newPosts],
               hasMore
             }
-          };
+          }
         }
-      });
+      })
     },
     goToPost(postId) {
-      this.$router.push(`/posts/${postId}`);
+      this.$router.push(`/posts/${postId}`)
     },
     formatCreatedDate(date) {
-      return moment(new Date(date)).format('ll');
+      return moment(new Date(date)).format('ll')
     }
   }
-};
+}
 </script>

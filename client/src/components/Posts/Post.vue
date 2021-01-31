@@ -95,9 +95,9 @@
   </v-container>
 </template>
 <script>
-import { GET_POST, ADD_POST_MESSAGE, LIKE_POST, UNLIKE_POST } from '../../queries';
-import { mapGetters } from 'vuex';
-import moment from 'moment';
+import { GET_POST, ADD_POST_MESSAGE, LIKE_POST, UNLIKE_POST } from '../../queries'
+import { mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'Post',
@@ -109,7 +109,7 @@ export default {
       messageBody: '',
       isFormValid: true,
       messageRules: [(message) => !!message || 'Message is required', (message) => (message && message.length < 50) || 'Message must be less than 50 characters']
-    };
+    }
   },
 
   apollo: {
@@ -118,7 +118,7 @@ export default {
       variables() {
         return {
           postId: this.postId
-        };
+        }
       }
     }
   },
@@ -127,29 +127,29 @@ export default {
   },
   methods: {
     getTimeFromNow(time) {
-      return moment(new Date(time)).fromNow();
+      return moment(new Date(time)).fromNow()
     },
     checkIfPostLiked(postId) {
       if (this.userFavorites && this.userFavorites.some((fave) => fave._id === postId)) {
-        this.postLiked = true;
-        return true;
+        this.postLiked = true
+        return true
       } else {
-        this.postLiked = false;
-        return false;
+        this.postLiked = false
+        return false
       }
     },
     handleToggleLike() {
       if (this.postLiked) {
-        this.handleUnlikePost();
+        this.handleUnlikePost()
       } else {
-        this.handleLikePost();
+        this.handleLikePost()
       }
     },
     handleLikePost() {
       const variables = {
         postId: this.postId,
         username: this.user.username
-      };
+      }
       this.$apollo
         .mutate({
           mutation: LIKE_POST,
@@ -158,29 +158,29 @@ export default {
             const data = cache.readQuery({
               query: GET_POST,
               variables: { postId: this.postId }
-            });
-            data.getPost.likes += 1;
+            })
+            data.getPost.likes += 1
             cache.writeQuery({
               query: GET_POST,
               variables: { postId: this.postId },
               data
-            });
+            })
           }
         })
         .then(({ data }) => {
           const updatedUser = {
             ...this.user,
             favorites: data.likePost.favorites
-          };
-          this.$store.commit('setUser', updatedUser);
+          }
+          this.$store.commit('setUser', updatedUser)
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.error(err))
     },
     handleUnlikePost() {
       const variables = {
         postId: this.postId,
         username: this.user.username
-      };
+      }
       this.$apollo
         .mutate({
           mutation: UNLIKE_POST,
@@ -189,23 +189,23 @@ export default {
             const data = cache.readQuery({
               query: GET_POST,
               variables: { postId: this.postId }
-            });
-            data.getPost.likes -= 1;
+            })
+            data.getPost.likes -= 1
             cache.writeQuery({
               query: GET_POST,
               variables: { postId: this.postId },
               data
-            });
+            })
           }
         })
         .then(({ data }) => {
           const updatedUser = {
             ...this.user,
             favorites: data.unlikePost.favorites
-          };
-          this.$store.commit('setUser', updatedUser);
+          }
+          this.$store.commit('setUser', updatedUser)
         })
-        .catch((err) => console.error(err));
+        .catch((err) => console.error(err))
     },
     handleAddPostMessage() {
       if (this.$refs.form.validate()) {
@@ -213,7 +213,7 @@ export default {
           messageBody: this.messageBody,
           userId: this.user._id,
           postId: this.postId
-        };
+        }
 
         this.$apollo
           .mutate({
@@ -223,37 +223,37 @@ export default {
               const data = cache.readQuery({
                 query: GET_POST,
                 variables: { postId: this.postId }
-              });
-              data.getPost.messages.unshift(addPostMessage);
+              })
+              data.getPost.messages.unshift(addPostMessage)
 
               cache.writeQuery({
                 query: GET_POST,
                 variables: { postId: this.postId },
                 data
-              });
+              })
             }
           })
           .then(({ data }) => {
-            this.$refs.form.reset();
-            console.log(data.addPostMessage);
+            this.$refs.form.reset()
+            console.log(data.addPostMessage)
           })
-          .catch((err) => console.error(err));
+          .catch((err) => console.error(err))
       }
     },
 
     goToPreviousPage() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     toggleImageDialog() {
       if (window.innerWidth > 500) {
-        this.dialog = !this.dialog;
+        this.dialog = !this.dialog
       }
     },
     checkIfOwnMessage(message) {
-      return this.user && this.user._id === message.messageUser._id;
+      return this.user && this.user._id === message.messageUser._id
     }
   }
-};
+}
 </script>
 <style scoped>
 #post__image {

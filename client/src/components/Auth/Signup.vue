@@ -1,6 +1,5 @@
 <template>
   <v-container mt-5 pt-5>
-
     <!--     Signup Title -->
 
     <v-row justify="center">
@@ -66,59 +65,51 @@
   </v-container>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "Signup",
+  name: 'Signup',
   data() {
     return {
       isFormValid: true,
-      username: "",
-      email: "",
-      password: "",
-      passwordConfirmation: "",
-      usernameRules: [
-        username => !!username || "Username is required",
-        username =>
-          username.length < 10 || "Username must be less than 10 characters"
-      ],
-      emailRules: [
-        email => !!email || "Email is required",
-        email => /.@+./.test(email) || "Email must be valid"
-      ],
+      username: '',
+      email: '',
+      password: '',
+      passwordConfirmation: '',
+      usernameRules: [(username) => !!username || 'Username is required', (username) => username.length < 10 || 'Username must be less than 10 characters'],
+      emailRules: [(email) => !!email || 'Email is required', (email) => /.@+./.test(email) || 'Email must be valid'],
       passwordRules: [
-        password => !!password || "Password is required",
-        password =>
-          password.length >= 4 || "Username must be at least 4 characters",
-        confirmation => confirmation === this.password || "Passwords must match"
+        (password) => !!password || 'Password is required',
+        (password) => password.length >= 4 || 'Username must be at least 4 characters',
+        (confirmation) => confirmation === this.password || 'Passwords must match'
       ]
-    };
+    }
   },
 
   computed: {
-    ...mapGetters(["loading", "error", "user"])
+    ...mapGetters(['loading', 'error', 'user'])
   },
   watch: {
     user(value) {
       // if user changes redirect to home page
 
       if (value) {
-        this.$router.push("/");
+        this.$router.push('/')
       }
     }
   },
   methods: {
     handleSignupUser() {
       if (this.$refs.form.validate()) {
-        this.$store.dispatch("signupUser", {
+        this.$store.dispatch('signupUser', {
           username: this.username,
           email: this.email,
           password: this.password
-        });
+        })
       }
     }
   }
-};
+}
 </script>
 
 <style>

@@ -54,7 +54,7 @@
   </v-container>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Signin',
@@ -65,7 +65,7 @@ export default {
       password: '',
       usernameRules: [(username) => !!username || 'Username is required', (username) => username.length < 10 || 'Username must be less than 10 characters'],
       passwordRules: [(password) => !!password || 'Password is required', (password) => password.length >= 4 || 'Username must be at least 4 characters']
-    };
+    }
   },
   computed: {
     ...mapGetters(['loading', 'error', 'user'])
@@ -75,7 +75,7 @@ export default {
       // if user changes redirect to home page
 
       if (value) {
-        this.$router.push('/');
+        this.$router.push('/')
       }
     }
   },
@@ -85,11 +85,11 @@ export default {
         this.$store.dispatch('signinUser', {
           username: this.username,
           password: this.password
-        });
+        })
       }
     }
   }
-};
+}
 </script>
 
 <style>

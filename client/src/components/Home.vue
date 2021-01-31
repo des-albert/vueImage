@@ -31,12 +31,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Home',
   created() {
-    this.handleGetCarouselPosts();
+    this.handleGetCarouselPosts()
   },
   computed: {
     ...mapGetters(['loading', 'posts'])
@@ -44,13 +44,13 @@ export default {
   methods: {
     handleGetCarouselPosts() {
       // reach out to Vuex store, fire action to get posts
-      this.$store.dispatch('getPosts');
+      this.$store.dispatch('getPosts')
     },
     goToPost(postId) {
-      this.$router.push(`/posts/${postId}`);
+      this.$router.push(`/posts/${postId}`)
     }
   }
-};
+}
 </script>
 <style>
 #carousel__title {

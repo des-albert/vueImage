@@ -66,7 +66,7 @@
   </v-container>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'AddPost',
@@ -81,7 +81,7 @@ export default {
       imageRules: [(image) => !!image || 'Image is required'],
       categoriesRules: [(categories) => categories.length >= 1 || 'At least one category is required'],
       descRules: [(desc) => !!desc || 'Description is required', (desc) => desc.length < 200 || 'Description must have less than 200 characters']
-    };
+    }
   },
   computed: {
     ...mapGetters(['loading', 'user'])
@@ -97,10 +97,10 @@ export default {
           categories: this.categories,
           description: this.description,
           creatorId: this.user._id
-        });
-        this.$router.push('/');
+        })
+        this.$router.push('/')
       }
     }
   }
-};
+}
 </script>
